@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Calculator.h"
+#include "SunTracer.h"
 
 TEST(SumTest, TwoNumbers) {
     Calculator calculator;
@@ -14,4 +14,5 @@ TEST(SumTest, TwoNumbers_Doubles) {
     double num1 = 5;
     double num2 = 7;
     EXPECT_EQ(calculator.summe<double>(num1, num2), num1 + num2);
+
 }
