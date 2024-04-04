@@ -6,20 +6,20 @@
 #include <cmath>
 
 
-double SunTracer::getAltitue_Degress(double latitude_Degress, double declination_Degress, double hourAngle_hour) {
+double SunTracer::calculate_sun_altitue_in_degress(double latitude_Degress, double declination_Degress, double hourAngle_hour) {
     // Umwandlung von Grad in Radiant
-    latitude_Degress = latitude_Degress * M_PI / 180.0;
-    declination_Degress = declination_Degress * M_PI / 180.0;
+    double latitude_rad = latitude_Degress * M_PI / 180.0;
+    double declination_rad = declination_Degress * M_PI / 180.0;
     hourAngle_hour = hourAngle_hour * M_PI / 180.0;
 
     // Berechnung der Sonnenhöhe in Radiant
-    double altitude = asin(sin(latitude_Degress) * sin(declination_Degress) + cos(latitude_Degress) * cos(declination_Degress) * cos(hourAngle_hour));
+    double altitude = asin(sin(latitude_rad) * sin(declination_rad) + cos(latitude_rad) * cos(declination_rad) * cos(hourAngle_hour));
 
     // Umwandlung der Sonnenhöhe in Grad und Rückgabe
     return altitude * 180.0 / M_PI;
 }
 
-double SunTracer::getJulianDate_FROM_UTC(int year, int month, int day, int hour, int minute, int second) {
+double SunTracer::getJulianDate_FROM_UTC(int year, int month, int day, int hour_UTC, int minute, int second) {
     // Die Monate Januar und Februar werden als 13. und 14. Monat des vorherigen Jahres betrachtet
     if (month <= 2) {
         year -= 1;
@@ -31,7 +31,7 @@ double SunTracer::getJulianDate_FROM_UTC(int year, int month, int day, int hour,
     int B = 2 - A + A / 4;
 
     // Umrechnung der Uhrzeit in einen Bruchteil eines Tages
-    double hourFraction = (hour + minute / 60.0 + second / 3600.0) / 24.0;
+    double hourFraction = (hour_UTC + minute / 60.0 + second / 3600.0) / 24.0;
 
     // Julianisches Datum
     double JD = floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day + hourFraction + B - 1524.5;
@@ -138,16 +138,16 @@ double SunTracer::getSunRightAscension(double julianDate) {
     return RA;
 }
 
-double SunTracer::getAltitue_Degress(double latitude_Degress, double longitude_Degress, int year, int month, int day, int hour, int minute, int second) {
-    double julianDate = getJulianDate_FROM_UTC(year, month, day, hour, minute, second);
+double SunTracer::calculate_sun_altitue_in_degress(double latitude_Degress, double longitude_Degress, int year, int month, int day, int hour_UTC, int minute, int second) {
+    double julianDate = getJulianDate_FROM_UTC(year, month, day, hour_UTC, minute, second);
     double declination = getSunDeclination_Degress(julianDate);
     double hourAngle = getHourAngle_Degress(getLocalSiderealTime(getGMST(julianDate), longitude_Degress),
                                             getSunRightAscension(julianDate));
-    return getAltitue_Degress(latitude_Degress, declination, hourAngle);
+    return calculate_sun_altitue_in_degress(latitude_Degress, declination, hourAngle);
 }
 
 
-double SunTracer::calculateSunAzimuth(double latitude_Degrees, double declination_Degrees, double hourAngle_Degrees) {
+double SunTracer::calculate_sun_azimuth_in_degress(double latitude_Degrees, double declination_Degrees, double hourAngle_Degrees) {
     // Umwandlung der Eingabewerte von Grad in Radian
     double latitude_Radians = latitude_Degrees * M_PI / 180.0;
     double declination_Radians = declination_Degrees * M_PI / 180.0;
@@ -171,14 +171,23 @@ double SunTracer::calculateSunAzimuth(double latitude_Degrees, double declinatio
 }
 
 
-double SunTracer::calculateSunAzimuth(double latitude_Degress, double longitude_Degress, int year, int month, int day,
-                                      int hour, int minute, int second) {
-    double julianDate = getJulianDate_FROM_UTC(year, month, day, hour, minute, second);
+double SunTracer::calculate_sun_azimuth_in_degress(double latitude_Degress, double longitude_Degress, int year, int month, int day,
+                                                   int hour_UTC, int minute, int second) {
+    double julianDate = getJulianDate_FROM_UTC(year, month, day, hour_UTC, minute, second);
     double declination = getSunDeclination_Degress(julianDate);
     double hourAngle = getHourAngle_Degress(getLocalSiderealTime(getGMST(julianDate), longitude_Degress),
                                             getSunRightAscension(julianDate));
-    return calculateSunAzimuth(latitude_Degress, declination, hourAngle);
+    return calculate_sun_azimuth_in_degress(latitude_Degress, declination, hourAngle);
 
+}
+
+double SunTracer::calculate_sun_altitue_in_degress(double latitude, double longitude, std::time_t time_UTC) {
+    int yearOffSet = 1900;
+    std::tm *timeInfo = std::gmtime(&time_UTC);
+    auto temp = calculate_sun_altitue_in_degress(latitude, longitude,
+                                                 timeInfo->tm_year + yearOffSet, timeInfo->tm_mon, timeInfo->tm_mday,
+                                                 timeInfo->tm_hour, timeInfo->tm_min, timeInfo->tm_sec);
+    return temp;
 }
 
 
