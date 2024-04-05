@@ -3,12 +3,6 @@
 #include <ctime>
 #include <iostream>
 
-
-
-
-
-
-
 TEST(calculateSunAltitue_Test, Determine_the_height_of_the_sun) {
     SunTracer sunTracer;
     double latitude = 47.20468;
@@ -21,7 +15,7 @@ TEST(calculateSunAltitue_Test, Determine_the_height_of_the_sun) {
     int second = 0;
     double tolerance = 0.2;
     // https://www.sonnenverlauf.de/#/47.2047,8.5341,8/2024.03.29/08:36/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, year, month, day, hour, minute, second), 23.56, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 23.56, tolerance);
 }
 
 
@@ -37,7 +31,7 @@ TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun_testdata_1){
     int second = 0;
     double tolerance = 0.5;
     // https://www.sonnenverlauf.de/#/47.2047,8.5341,8/2024.03.29/08:36/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 111.66, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 111.66, tolerance);
 }
 
 
@@ -53,7 +47,7 @@ TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun_testdata_2) {
     int second = 0;
     double tolerance = 0.5;
     //https://www.sonnenverlauf.de/#/46.2372,5.372,6/2024.07.20/08:36/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 84.16, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 84.16, tolerance);
 }
 
 TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_the_sun) {
@@ -68,8 +62,8 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     int second = 0;
     double tolerance = 0.5;
     //https://www.sonnenverlauf.de/#/46.0714,17.9199,6/2024.03.29/10:07/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, year, month, day, hour, minute, second), 41.72, tolerance);
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 143.39, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 41.72, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 143.39, tolerance);
 
 }
 
@@ -86,8 +80,8 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     int second = 0;
     double tolerance = 0.5;
     //https://www.sonnenverlauf.de/#/-29.1851,118.5364,3/2031.03.22/10:07/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, year, month, day, hour, minute, second), 47.77, tolerance);
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 50.95, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 47.77, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 50.95, tolerance);
 }
 
 
@@ -103,8 +97,8 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     int second = 0;
     double tolerance = 0.9;
     //https://www.sonnenverlauf.de/#/36.9393,-85.8345,6/2024.03.29/10:07/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, year, month, day, hour, minute, second), 40.41, tolerance);
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 122.20, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 40.41, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 122.20, tolerance);
 }
 
 
@@ -120,8 +114,8 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     int second = 0;
     double tolerance = 0.9;
     //https://www.sonnenverlauf.de/#/-23.9505,-61.8335,4/2027.08.20/10:07/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, year, month, day, hour, minute, second), 32.26, tolerance);
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, year, month, day, hour, minute, second), 56.08, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 32.26, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 56.08, tolerance);
 }
 
 TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_the_sun_with_time_t_object){
@@ -147,6 +141,6 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
 
     double tolerance = 0.9;
     //https://www.sonnenverlauf.de/#/-23.9505,-61.8335,4/2027.08.20/10:07/1/3
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, longitude, utcTime), 32.26, tolerance);
-    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degress(latitude, longitude, utcTime), 56.08, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, utcTime), 32.26, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, utcTime), 56.08, tolerance);
 }
