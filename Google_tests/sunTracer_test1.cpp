@@ -7,106 +7,9 @@
 
 
 
-TEST(calculateSunAltitude_Test, Determine_the_height_of_the_sun) {
-    SunTracer sunTracer;
-    double latitude = 50.0;
-    double declination = 23.44;
-    double hourAngle = -30.0;
-    double tolerance = 0.01;
-    EXPECT_NEAR(sunTracer.calculate_sun_altitue_in_degress(latitude, declination, hourAngle), 54.63, tolerance);
-}
 
 
-TEST(calculateJulianDate_Test, Determine_the_Julian_date) {
-    SunTracer sunTracer;
-    int year = 2024; //Time in UTC
-    int month = 3;
-    int day = 25;
-    int hour = 12;
-    int minute = 0;
-    int second = 0;
-    EXPECT_EQ(sunTracer.getJulianDate_FROM_UTC(year, month, day, hour, minute, second), 2460395);
-}
-
-
-TEST(calculate_GSMT_Test, Determine_the_Greenwich_Sidereal_Mean_Time) {
-    //https://www.walter-fendt.de/html5/aen/siderealtime_en.htm
-    SunTracer sunTracer;
-    double julianDate = 2460492.375845;
-    // Erwarteter Wert für GMST basierend auf `julianDate`
-    double expectedGMST = 15.64815;
-
-    // Die Toleranz für den Vergleich
-    double tolerance = 0.07; // 0.05 sind circa 3 Minuten //0.07 sind circa 4 Minuten
-
-    // Der tatsächliche Wert von getGMST
-    double actualGMST = sunTracer.getGMST(julianDate);
-    EXPECT_NEAR(actualGMST, expectedGMST, tolerance);
-}
-
-TEST(calculate_LMST_Test, Determine_the_Local_Mean_Sidereal_Time) {
-    //https://www.walter-fendt.de/html5/aen/siderealtime_en.htm
-    SunTracer sunTracer;
-    double gmst = 7.15830;
-    double longitude = 47.275315; //https://www.latlong.net/
-    // Erwarteter Wert für LMST basierend auf `gmst` und `longitude`
-    double expectedLMST = 10.30999;
-
-    // Die Toleranz für den Vergleich
-    double tolerance = 0.01;
-
-    // Der tatsächliche Wert von getLocalSiderealTime
-    double actualLMST = sunTracer.getLocalSiderealTime(gmst, longitude);
-    EXPECT_NEAR(actualLMST, expectedLMST, tolerance);
-}
-
-TEST(calculateSunDeclination_Test, Determine_the_declination_of_the_sun) {
-    SunTracer sunTracer;
-    double julianDate = 2460492.5;  ///01.07.2024 //182 Tag im Jahr
-    // Erwarteter Wert für die Sonnendeklination basierend auf `julianDate`
-    double expectedSunDeclination = 23.45; //https://polaridad.es/de/formula-declinacion-solar/
-
-    // Die Toleranz für den Vergleich
-    double tolerance = 0.5;
-
-    // Der tatsächliche Wert von getSunDeclination_Degress
-    double actualSunDeclination = sunTracer.getSunDeclination_Degress(julianDate);
-    EXPECT_NEAR(actualSunDeclination, expectedSunDeclination, tolerance);
-}
-
-TEST(calculateSudRigthAscension_Test, Determine_the_right_ascension_of_the_sun) {
-    SunTracer sunTracer;
-    double julianDate = 2460398.812870;  ///01.07.2024 //182 Tag im Jahr
-    // Erwarteter Wert für die Rektaszension der Sonne basierend auf `julianDate`
-    double expectedSunRightAscension = 0.537; //https://heavens-above.com/Sun.aspx
-    // Umrechnung einer Rektaszension von Stunden, Minuten und Sekunden in dezimale Stunden:
-    // Dezimale RA = Stunden + (Minuten / 60) + (Sekunden / 3600)
-
-
-    // Die Toleranz für den Vergleich
-    double tolerance = 0.2;
-
-    // Der tatsächliche Wert von getSunRightAscension
-    double actualSunRightAscension = sunTracer.getSunRightAscension(julianDate);
-    EXPECT_NEAR(actualSunRightAscension, expectedSunRightAscension, tolerance);
-}
-
-TEST(calculateHourAngle_Test, Determine_the_hour_angle) {
-    SunTracer sunTracer;
-    double localSiderealTime = 10.30999;
-    double rightAscension = 0.0;
-    // Erwarteter Wert für den Stundenwinkel basierend auf `localSiderealTime` und `rightAscension`
-    double expectedHourAngle = 154.648; //Degress
-
-    // Die Toleranz für den Vergleich
-    double tolerance = 0.01;
-
-    // Der tatsächliche Wert von getHourAngle_Degress
-    double actualHourAngle = sunTracer.getHourAngle_Degress(localSiderealTime, rightAscension);
-    EXPECT_NEAR(actualHourAngle, expectedHourAngle, tolerance);
-}
-
-TEST(calculateSunAltitude_Test_Determine_the_height_of_the_sun_Test, Determine_the_height_of_the_sun) {
+TEST(calculateSunAltitue_Test, Determine_the_height_of_the_sun) {
     SunTracer sunTracer;
     double latitude = 47.20468;
     double longitude= 8.53414;
@@ -122,7 +25,7 @@ TEST(calculateSunAltitude_Test_Determine_the_height_of_the_sun_Test, Determine_t
 }
 
 
-TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun) {
+TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun_testdata_1){
     SunTracer sunTracer;
     double latitude = 47.20468;
     double longitude= 8.53414;
@@ -138,7 +41,7 @@ TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun) {
 }
 
 
-TEST(calculateSunAzimuth_Test2, Determine_the_azimuth_of_the_sun) {
+TEST(calculateSunAzimuth_Test, Determine_the_azimuth_of_the_sun_testdata_2) {
     SunTracer sunTracer;
     double latitude = 46.2372;
     double longitude= 5.372;
