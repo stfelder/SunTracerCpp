@@ -190,4 +190,13 @@ double SunTracer::calculate_sun_altitue_in_degress(double latitude, double longi
     return temp;
 }
 
+double SunTracer::calculate_sun_azimuth_in_degress(double latitude, double declination, std::time_t time_UTC) {
+    int yearOffSet = 1900;
+    std::tm *timeInfo = std::gmtime(&time_UTC);
+    auto temp = calculate_sun_azimuth_in_degress(latitude, declination,
+                                                 timeInfo->tm_year + yearOffSet, timeInfo->tm_mon, timeInfo->tm_mday,
+                                                 timeInfo->tm_hour, timeInfo->tm_min, timeInfo->tm_sec);
+    return temp;
+}
+
 

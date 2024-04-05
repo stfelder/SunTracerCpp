@@ -23,10 +23,13 @@ public:
 
     double calculate_sun_azimuth_in_degress(double latitude_Degress, double declination_Degress, double hourAngle_Degress);
     double calculate_sun_azimuth_in_degress(double latitude_Degress, double longitude_Degress, int year, int month, int day, int hour_UTC, int minute, int second);
-    double calculate_sun_altitue_in_degress(double latitude, double declination, std::time_t time_UTC);
+    double calculate_sun_azimuth_in_degress(double latitude, double declination, std::time_t time_UTC);
+
 
     double calculate_sun_altitue_in_degress(double latitude, double declination, double hourAngle_hour);
     double calculate_sun_altitue_in_degress(double latitude_Degress, double longitude_Degress, int year, int month, int day, int hour_UTC, int minute, int second);
+    double calculate_sun_altitue_in_degress(double latitude, double declination, std::time_t time_UTC);
+
 
 
 
