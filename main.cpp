@@ -19,11 +19,11 @@ int main() {
     int second = 0;
     double tolerance = 0.5;
 
-    std::cout << "Sun altitude: " << sunTracer.calculate_sun_altitue_in_degress(
+    std::cout << "Sun altitude: " << sunTracer.calculate_sun_altitude_in_degrees(
             latitude, longitude, year, month, day, hour, minute, second
-            ) << std::endl;
+    ) << std::endl;
 
-    std::cout << "Sun azimuth: " << sunTracer.calculate_sun_azimuth_in_degress(
+    std::cout << "Sun azimuth: " << sunTracer.calculate_sun_azimuth_in_degrees(
             latitude, longitude, year, month, day, hour, minute, second
             ) << std::endl;
 
