@@ -162,12 +162,14 @@ double SunTracer::calculate_sun_azimuth_in_degrees(double latitude_Degrees, doub
     // Umwandlung des Azimuth von Radian in Grad
     double azimuth_Degrees = azimuth_Radians * radToDeg;
 
+    azimuth_Degrees += 180.0; // Umrechnung von Nord nach Süd Todo: Check if this is correct
+
     // Stellen Sie sicher, dass der Azimut im Bereich von 0° bis 360° liegt
-    if (azimuth_Degrees < 0) {
-        azimuth_Degrees += 360.0;
+    if (azimuth_Degrees > 360) {
+        azimuth_Degrees -= 360.0;
     }
 
-    return azimuth_Degrees -180;
+    return azimuth_Degrees;
 }
 
 
