@@ -118,6 +118,22 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 56.08, tolerance);
 }
 
+TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_the_sun_Eeast_side_longitude_and_South_side_Equator_with_Azimuth_over_180_degrees){
+    SunTracer sunTracer;
+    double latitude = 47.05972;
+    double longitude= 8.30906;
+    int year = 2024; //Time in UTC
+    int month = 4;
+    int day = 8;
+    int hour = 12;
+    int minute = 07;
+    int second = 0;
+    double tolerance = 0.9;
+    //https://www.sonnenverlauf.de/#/47.0597,8.3091,11/2024.04.08/10:07/1/3
+    EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 49.6, tolerance);
+    EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, year, month, day, hour, minute, second), 194.82, tolerance);
+}
+
 TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_the_sun_with_time_t_object){
     SunTracer sunTracer;
     double latitude = -23.95054;
@@ -144,3 +160,4 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, utcTime), 32.26, tolerance);
     EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, utcTime), 56.08, tolerance);
 }
+

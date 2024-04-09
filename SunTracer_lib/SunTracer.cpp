@@ -162,12 +162,14 @@ double SunTracer::calculate_sun_azimuth_in_degrees(double latitude_Degrees, doub
     // Umwandlung des Azimuth von Radian in Grad
     double azimuth_Degrees = azimuth_Radians * radToDeg;
 
+    azimuth_Degrees += 180.0; // Umrechnung von Nord nach Süd Todo: Check if this is correct
+
     // Stellen Sie sicher, dass der Azimut im Bereich von 0° bis 360° liegt
-    if (azimuth_Degrees < 0) {
-        azimuth_Degrees += 360.0;
+    if (azimuth_Degrees > 360) {
+        azimuth_Degrees -= 360.0;
     }
 
-    return azimuth_Degrees -180;
+    return azimuth_Degrees;
 }
 
 
@@ -197,6 +199,51 @@ double SunTracer::calculate_sun_azimuth_in_degrees(double latitude, double decli
                                                  timeInfo->tm_year + yearOffSet, timeInfo->tm_mon, timeInfo->tm_mday,
                                                  timeInfo->tm_hour, timeInfo->tm_min, timeInfo->tm_sec);
     return temp;
+}
+
+double
+SunTracer::calculate_sun_azimuth_From_Current_Systemtime_in_degrees(double latitude_Degrees, double longitude_Degrees) {
+    // Hole die aktuelle Zeit als time_point
+    auto now = std::chrono::system_clock::now();
+
+    // Konvertiere time_point zu time_t, um mit der C Standardbibliothek zu arbeiten
+    time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+    // Konvertiere time_t zu tm als UTC
+    std::tm* now_tm = std::gmtime(&now_c);
+
+    // Tag, monat und Jahr auslesen
+    int year_now = now_tm->tm_year + 1900;
+    int month_now = now_tm->tm_mon + 1;
+    int day_now = now_tm->tm_mday;
+    int hour_now = now_tm->tm_hour;
+    int minute_now = now_tm->tm_min;
+    int second_now = now_tm->tm_sec;
+
+    return calculate_sun_azimuth_in_degrees(latitude_Degrees, longitude_Degrees, year_now, month_now, day_now, hour_now, minute_now, second_now);
+}
+
+
+double
+SunTracer::calculate_sun_altitude_From_Current_Systemtime_in_degrees(double latitude_Degrees, double longitude_Degrees) {
+    // Hole die aktuelle Zeit als time_point
+    auto now = std::chrono::system_clock::now();
+
+    // Konvertiere time_point zu time_t, um mit der C Standardbibliothek zu arbeiten
+    time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+    // Konvertiere time_t zu tm als UTC
+    std::tm* now_tm = std::gmtime(&now_c);
+
+    // Tag, monat und Jahr auslesen
+    int year_now = now_tm->tm_year + 1900;
+    int month_now = now_tm->tm_mon + 1;
+    int day_now = now_tm->tm_mday;
+    int hour_now = now_tm->tm_hour;
+    int minute_now = now_tm->tm_min;
+    int second_now = now_tm->tm_sec;
+
+    return calculate_sun_altitude_in_degrees(latitude_Degrees, longitude_Degrees, year_now, month_now, day_now, hour_now, minute_now, second_now);
 }
 
 
