@@ -160,3 +160,4 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, utcTime), 32.26, tolerance);
     EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, utcTime), 56.08, tolerance);
 }
+

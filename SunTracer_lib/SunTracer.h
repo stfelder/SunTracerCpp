@@ -14,10 +14,12 @@ public:
 
     double calculate_sun_azimuth_in_degrees(double latitude_Degrees, double longitude_Degrees, int year, int month, int day, int hour_UTC, int minute, int second);
     double calculate_sun_azimuth_in_degrees(double latitude, double declination, std::time_t time_UTC);
+    double calculate_sun_azimuth_From_Current_Systemtime_in_degrees(double latitude_Degrees, double longitude_Degrees);
 
 
     double calculate_sun_altitude_in_degrees(double latitude_Degrees, double longitude_Degrees, int year, int month, int day, int hour_UTC, int minute, int second);
     double calculate_sun_altitude_in_degrees(double latitude, double declination, std::time_t time_UTC);
+    double calculate_sun_altitude_From_Current_Systemtime_in_degrees(double latitude_Degrees, double longitude_Degrees);
 
 private:
     [[nodiscard]] double getSunTrueLongitude(double julianDate) const;
