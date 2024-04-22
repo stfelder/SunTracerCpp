@@ -30,7 +30,8 @@ int main() {
     Shade_Sun_Exposure_Checker shadeSunExposureChecker;
     double shaden_azimuth = 180.0;
     bool is_sun_shining = shadeSunExposureChecker.is_sun_shining_on_shade(shaden_azimuth, year, month, day, hour, minute, second, latitude, longitude);
-    std::cout << "Is sun shining on shade: " << is_sun_shining << std::endl;
+    std::cout << "Is sun shining on shade: " << is_sun_shining << " (Time: "<< year << "." << month
+              << "." << day << " " << hour << ":" << minute << ":" << second << ")"<<  std::endl;
 
     // Expected output:
     // Is sun shining on shade: 1
@@ -40,7 +41,7 @@ int main() {
     // The shade is located at an azimuth of 180 degrees.
     // The location is Lucern, Switzerland.
     // Print the result to the console.
-    bool is_sun_shining_now = shadeSunExposureChecker.is_now_sun_shining_on_shade(shaden_azimuth);
+    bool is_sun_shining_now = shadeSunExposureChecker.is_now_sun_shining_on_shade(shaden_azimuth, latitude, longitude);
     std::cout << "Is sun shining on shade now: " << is_sun_shining_now << std::endl;
 
     // Expected output:
@@ -49,7 +50,7 @@ int main() {
     //http://www.sonnenverlauf.de/#/47.2745,8.4629,8/2024.03.29/08:36/1/3
 
 
-    /**************************************************************************
+/**************************************************************************
  *         Exempel to calculate the sun's altitude and azimuth
  **************************************************************************/
     // Use the SunTracer class to calculate the sun's altitude and azimuth
