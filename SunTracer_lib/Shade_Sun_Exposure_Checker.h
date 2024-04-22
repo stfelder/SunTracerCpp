@@ -16,10 +16,12 @@ public:
                                  double shade_direction_tolerance_start_in_deg = 5.0,
                                  double shade_direction_tolerance_end_in_deg = 5.0);
 
-    bool is_now_sun_shining_on_shade(double shade_azimuth);
+    bool is_now_sun_shining_on_shade(double shade_azimuth, double latitude, double longitude);
 
 private:
     SunTracer _sunTracer{};
+
+
 };
 
 
