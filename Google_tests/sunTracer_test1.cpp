@@ -138,15 +138,22 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     SunTracer sunTracer;
     double latitude = -23.95054;
     double longitude= -61.83349;
+    int year = 2027; //Time in UTC
+    int month = 8;
+    int day = 20;
+    int hour = 13;
+    int minute = 07;
+    int second = 0;
+    double tolerance = 0.9;
 
 
     struct tm timeinfo = {0};
-    timeinfo.tm_year = 2027 - 1900; // Jahre seit 1900
-    timeinfo.tm_mon = 8; // Monat, 0-basiert (0 = Januar, 7 = August)
-    timeinfo.tm_mday = 20; // Tag des Monats
-    timeinfo.tm_hour = 15; // Stunde (24-Stunden-Format)
-    timeinfo.tm_min = 7; // Minute
-    timeinfo.tm_sec = 0; // Sekunde
+    timeinfo.tm_year = year - 1900; // Jahre seit 1900
+    timeinfo.tm_mon = month-1; // Monat, 0-basiert (0 = Januar, 7 = August)
+    timeinfo.tm_mday = day; // Tag des Monats
+    timeinfo.tm_hour = hour+1; // Stunde (24-Stunden-Format)
+    timeinfo.tm_min = minute; // Minute
+    timeinfo.tm_sec = second; // Sekunde
 
     // Konvertierung der tm Struktur in einen time_t Wert
     time_t localTime  = mktime(&timeinfo);
@@ -155,7 +162,6 @@ TEST(calculateSunAzimuth_and_Altitude_Test, Determine_the_azimuth_and_height_of_
     std::tm* gmtTime = gmtime(&localTime);
     time_t utcTime = mktime(gmtTime);
 
-    double tolerance = 0.9;
     //https://www.sonnenverlauf.de/#/-23.9505,-61.8335,4/2027.08.20/10:07/1/3
     EXPECT_NEAR(sunTracer.calculate_sun_altitude_in_degrees(latitude, longitude, utcTime), 32.26, tolerance);
     EXPECT_NEAR(sunTracer.calculate_sun_azimuth_in_degrees(latitude, longitude, utcTime), 56.08, tolerance);

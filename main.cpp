@@ -27,7 +27,7 @@ int main() {
     // The location is Lucern, Switzerland on 29.03.2024 at 08:12:00 UTC.
     // Print the result to the console.
 
-    Shade_Sun_Exposure_Checker shadeSunExposureChecker;
+    Shade_Sun_Exposure_Checker shadeSunExposureChecker(longitude,latitude);
     double shaden_azimuth = 180.0;
     bool is_sun_shining = shadeSunExposureChecker.is_sun_shining_on_shade(shaden_azimuth, year, month, day, hour, minute, second, latitude, longitude);
     std::cout << "Is sun shining on shade: " << is_sun_shining << " (Time: "<< year << "." << month
